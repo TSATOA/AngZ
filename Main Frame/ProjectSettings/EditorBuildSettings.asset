@@ -6,27 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Scene_Init.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/Scene_Login.unity
+    guid: 3cf995ca92f9f2e4b963f9bb314f886d
   - enabled: 1
-    path: Assets/Scenes/Scene_CreateRoom.unity
-    guid: 79c336def42f2394bb7ea65831fd5c82
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/Scene_RoomList.unity
-    guid: 20a4c2cf6892a3a47885df65e92e98ab
-  - enabled: 1
-    path: Assets/Scenes/ModifyMetaverse/Scene_LectureRoom.unity
-    guid: a8032ca5ee0ae704180ec8875fbc3faf
-  - enabled: 1
-    path: Assets/Scenes/ModifyMetaverse/Scene_Nature.unity
-    guid: c29a3fe25619ddd4ba17cb16ec791829
-  - enabled: 1
-    path: Assets/Scenes/ModifyMetaverse/Scene_Street.unity
-    guid: 04210c10de52d454d9d6d09a56dc53d8
-  - enabled: 1
-    path: Assets/Scenes/ModifyMetaverse/Scene_Winter.unity
+    path: Assets/Scenes/Metaverse/Scene_Winter.unity
     guid: 0a9fa2823cd789b4eb4425bced944425
   m_configObjects: {}
