@@ -103,13 +103,22 @@ ScriptsOnlyBuild:
     methodName: MyListClick
   - assembly: Assembly-CSharp
     fullTypeName: PhotonInit
+    methodName: MyListClick
+  - assembly: Assembly-CSharp
+    fullTypeName: PhotonInit
     methodName: OnRoomListClick
   - assembly: Assembly-CSharp
     fullTypeName: PhotonInit
     methodName: OnRoomOptionsClick
   - assembly: Assembly-CSharp
     fullTypeName: PhotonInit
+    methodName: PasswordPanelOff
+  - assembly: Assembly-CSharp
+    fullTypeName: PhotonInit
     methodName: SelectTema_4
+  - assembly: Assembly-CSharp
+    fullTypeName: PhotonInit
+    methodName: MyListClick
   - assembly: Assembly-CSharp
     fullTypeName: PhotonInit
     methodName: MyListClick
@@ -143,6 +152,9 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: PhotonInit
     methodName: SelectTema_3
+  - assembly: Assembly-CSharp
+    fullTypeName: PhotonInit
+    methodName: OnPasswordClick
   - assembly: Assembly-CSharp
     fullTypeName: PhotonInit
     methodName: OnBackToInit
@@ -1468,7 +1480,7 @@ ScriptsOnlyBuild:
     className: PunCockpit
   - hash:
       serializedVersion: 2
-      Hash: 55b19e433271628d6f1bf69f261e0ec2
+      Hash: 2b4e503c3b42f653397c7e8a5e956079
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PhotonInit

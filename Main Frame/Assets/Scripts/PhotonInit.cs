@@ -17,7 +17,8 @@ public class PhotonInit : MonoBehaviourPunCallbacks
         INIT = 1,
         CREATE_ROOM = 2,
         ROOM_LIST = 3,
-        ROOM_OPTIONS = 4
+        ROOM_OPTIONS = 4,
+        PASSWORD = 5
     }
     public ActivePanel activePanel = ActivePanel.LOGIN;
 
@@ -30,6 +31,8 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
     public Toggle toggleLocked;
     public TMP_InputField password;
+
+    public TMP_InputField passwordTried;
 
     public GameObject[] panels; //login~월드 입장 직전까지의 panels
 
@@ -45,6 +48,8 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
         txtUserId.text = PlayerPrefs.GetString("USER_ID", "USER_" + Random.Range(1, 999));
         txtRoomName.text = PlayerPrefs.GetString("ROOM_NAME", "ROOM_" + Random.Range(1, 999));
+        password.text = PlayerPrefs.GetString("PASSWORD", "");
+
     }
 
     #region SELF_CALLBACK_FUNCTIONS
@@ -97,7 +102,6 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
     public void OnCreateRoomClick()
     {
-        password.text = PlayerPrefs.GetString("PASSWORD", "");
         PlayerPrefs.SetString("ROOM_NAME", txtRoomName.text);
 
         ChangePanel(ActivePanel.CREATE_ROOM);
@@ -120,6 +124,7 @@ public class PhotonInit : MonoBehaviourPunCallbacks
     {
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 20;
+        Debug.Log(password.text);
         roomOptions.CustomRoomProperties = new Hashtable() {
             {"roomName", txtRoomName.text },
             {"isLocked", toggleLocked.isOn },
@@ -194,20 +199,76 @@ public class PhotonInit : MonoBehaviourPunCallbacks
 
     #endregion
 
+    private void PasswordPanelOn()
+    {
+        panels[(int)ActivePanel.PASSWORD].SetActive(true);
+    }
+
+    public void PasswordPanelOff()
+    {
+        panels[(int)ActivePanel.PASSWORD].SetActive(false);
+    }
+
+    public void OnPasswordClick()
+    {
+        Hashtable ht = myList[curRoomNum].CustomProperties;
+        Debug.Log(ht["password"]);
+        Debug.Log(passwordTried.text);
+        if (passwordTried.text.Equals(System.Convert.ToString(ht["password"])))
+        {
+            PhotonNetwork.JoinRoom(myList[curRoomNum].Name);
+        }
+        else
+        {
+            //message for password wrong
+        }
+
+        PasswordPanelOff();
+    }
+
     public GameObject LobbyPanel;
     public Button[] CellBtn;
     public Button PreviousBtn;
     public Button NextBtn;
     List<RoomInfo> myList = new List<RoomInfo>();
     int currentPage = 1, maxPage, multiple;
+    int curRoomNum;
     #region 방리스트 갱신
     // ◀버튼 -2 , ▶버튼 -1 , 셀 숫자
     public void MyListClick(int num)
     {
-        if (num == -2) --currentPage;
-        else if (num == -1) ++currentPage;
-        else PhotonNetwork.JoinRoom(myList[multiple + num].Name);
-        MyListRenewal();
+        if (num == -2)
+        {
+            --currentPage; 
+            MyListRenewal();
+        }
+        else if (num == -1)
+        {
+            ++currentPage;
+            MyListRenewal();
+        }
+        else
+        {
+            Hashtable ht = myList[multiple + num].CustomProperties;
+            Debug.Log(ht["isLocked"].GetType());
+            curRoomNum = multiple + num;
+
+            bool isLocked = System.Convert.ToBoolean(ht["isLocked"]);
+
+
+            if (isLocked)
+            {
+                Debug.Log(ht["password"]);
+                PasswordPanelOn();
+            }
+            else
+            {
+                PhotonNetwork.JoinRoom(myList[multiple + num].Name);
+                MyListRenewal();
+            }
+            //PhotonNetwork.JoinRoom(myList[multiple + num].Name);
+
+        }
     }
 
     void MyListRenewal()
